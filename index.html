@@ -3,80 +3,302 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form</title>
+    <title>Application Form</title>
     <style>
-        .sai{
-            margin-right: 185px;
+        :root {
+            color-scheme: light;
+            --bg: #f4f7fb;
+            --surface: #ffffff;
+            --surface-soft: #eef4fb;
+            --primary: #3467f0;
+            --primary-muted: #8fa8ff;
+            --text-dark: #0f172a;
+            --text-muted: #6b7280;
+            --border: #d2dce9;
+            --shadow: 0 24px 80px rgba(32, 55, 95, 0.08);
+            --radius: 24px;
         }
-        .male{
-            margin-right: 120px;
+
+        * {
+            box-sizing: border-box;
         }
-        .mid{
-            margin-left: 70px;
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: linear-gradient(180deg, #f8fbff 0%, #f4f7fb 100%);
+            color: var(--text-dark);
         }
-        #lang{
-            margin-right: 122px;
+
+        .page-shell {
+            width: min(1160px, 100%);
+            margin: 0 auto;
+            padding: 32px 24px;
         }
-        .number{
-            margin-left: 45px;
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            text-align: center;
+            padding: 20px 0 16px;
         }
-        .vamsi{
-            margin-right: 380px;
+
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(2rem, 3vw, 2.8rem);
+            letter-spacing: -0.04em;
         }
-            
-    
-    </style
-      
+
+        .hero p {
+            margin: 0 auto;
+            max-width: 760px;
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .form-card {
+            background: var(--surface);
+            border: 1px solid rgba(115, 137, 173, 0.16);
+            box-shadow: var(--shadow);
+            border-radius: var(--radius);
+            padding: 32px;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 22px;
+        }
+
+        .field-group {
+            display: grid;
+            gap: 14px;
+        }
+
+        .field-row {
+            display: grid;
+            gap: 18px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        input[type="number"],
+        input[type="password"],
+        select {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 16px;
+            background: var(--surface-soft);
+            font-size: 1rem;
+            color: var(--text-dark);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: rgba(52, 103, 240, 0.8);
+            box-shadow: 0 0 0 4px rgba(52, 103, 240, 0.12);
+        }
+
+        .option-grid {
+            display: grid;
+            gap: 12px;
+            padding: 16px 14px;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .option-grid label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .option-grid input {
+            width: auto;
+            margin: 0;
+            accent-color: var(--primary);
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: flex-end;
+            margin-top: 12px;
+        }
+
+        button {
+            border: none;
+            border-radius: 14px;
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 16px 32px rgba(52, 103, 240, 0.18);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-dark);
+            border: 1px solid rgba(15, 23, 42, 0.12);
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+        }
+
+        .form-footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 760px) {
+            .field-row {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                justify-content: stretch;
+            }
+
+            .form-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-shell {
+                padding: 20px 16px;
+            }
+
+            .form-card {
+                padding: 24px;
+            }
+        }
+    </style>
 </head>
-<body style="text-align: center;">
-    <h1>Application form</h1>
-    <div>
-        <label type="text">First Name</label>
-        <input type="text">
-        <label type="text">Last Name</label>
-        <input type="text">
-    </div><br>
-    <div class="sai">
-        <label type="Date">Date of Birth</label>
-        <input type="Date">
-        <label type="number">Age</label>
-        <input type="number" min="1" max="120">
-    </div><br>
-    <div class="male">
-        <label type="gendert">Gender</label>
-        <select type="gender">
-            <option>male</option>
-            <option>female</option>
-        </select>
-        <label type="text">Email Adress</label>
-        <input type="text">
-    </div><br>
-    <div class="mid">
-        <label type="text">Positions Available</label>
-        <input type="radio">Junior Developer
-        <input type="radio">Mid-Level Developer
-        <input type="radio">Senior Developer
-    </div><br>
-    <div id="lang">
-        <label type="text">programming languagres</label>
-        <input type="checkbox">java
-        <input type="checkbox">python
-        <input type="checkbox">java script
-    </div><br>
-    <div class="number">
-        <label type="password">password</label>
-        <input type="password">
-        <label type="password">Confirm Password</label>
-        <input type="password">
-    </div><br>
-    <div class="vamsi">
-        <button type="submit">Submit</button>
-        <button type="reset">Reset</button>
-    </div>
+<body>
+    <main class="page-shell">
+        <section class="hero">
+            <p style="margin:0; color: var(--primary); font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; font-size: 0.85rem;">Professional Application</p>
+            <h1>Clean, responsive application form</h1>
+            <p>Complete your submission with a modern layout designed for clarity, fast completion, and consistent spacing across desktop and mobile.</p>
+        </section>
 
+        <section class="form-card">
+            <form>
+                <div class="form-grid">
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="firstName">First Name</label>
+                            <input id="firstName" name="firstName" type="text" placeholder="Enter first name">
+                        </div>
+                        <div class="field-group">
+                            <label for="lastName">Last Name</label>
+                            <input id="lastName" name="lastName" type="text" placeholder="Enter last name">
+                        </div>
+                    </div>
 
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="dob">Date of Birth</label>
+                            <input id="dob" name="dob" type="date">
+                        </div>
+                        <div class="field-group">
+                            <label for="age">Age</label>
+                            <input id="age" name="age" type="number" min="14" max="120" placeholder="Enter age">
+                        </div>
+                    </div>
 
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender">
+                                <option value="">Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label for="email">Email Address</label>
+                            <input id="email" name="email" type="email" placeholder="name@example.com">
+                        </div>
+                    </div>
 
-    
+                    <div class="field-group">
+                        <label>Positions Available</label>
+                        <div class="option-grid">
+                            <label><input type="radio" name="position" value="junior"> Junior Developer</label>
+                            <label><input type="radio" name="position" value="mid"> Mid-Level Developer</label>
+                            <label><input type="radio" name="position" value="senior"> Senior Developer</label>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label>Programming Languages</label>
+                        <div class="option-grid">
+                            <label><input type="checkbox" name="languages" value="java"> Java</label>
+                            <label><input type="checkbox" name="languages" value="python"> Python</label>
+                            <label><input type="checkbox" name="languages" value="javascript"> JavaScript</label>
+                        </div>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="password">Password</label>
+                            <input id="password" name="password" type="password" placeholder="Create a password">
+                        </div>
+                        <div class="field-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Repeat password">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="reset" class="btn-secondary">Reset</button>
+                    <button type="submit" class="btn-primary">Submit Application</button>
+                </div>
+
+                <div class="form-footer">
+                    <span>All fields are optional in this demo form.</span>
+                    <span>Designed for clarity on every screen size.</span>
+                </div>
+            </form>
+        </section>
+    </main>
 </body>
 </html>
